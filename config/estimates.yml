@@ -1,0 +1,8 @@
+development:
+  cut_price_cents: 1
+  cut_price_currency: USD
+  cut_speed: 1.00
+production:
+  cut_price_cents: 1
+  cut_price_currency: USD
+  cut_speed: 1.00

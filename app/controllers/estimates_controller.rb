@@ -4,7 +4,7 @@ class EstimatesController < ApplicationController
   class EstimateForm
     include ActiveModel::Model
 
-    attr_accessor :file
+    attr_accessor :file, :metal_id
 
     delegate :original_filename, to: :file
 
@@ -25,12 +25,12 @@ class EstimatesController < ApplicationController
       @content ||= file.read
     end
 
-    def length
-      @length ||= DxfEstimator.new(content: content).length
+    def estimator
+      @estimator ||= DxfEstimator.new(content: content)
     end
 
     def persist
-      Estimate.create!(file: content, name: original_filename, length: length)
+      Estimate.create!(metal_id: metal_id, file: content, name: original_filename, length: estimator.length, width: estimator.width, height: estimator.height, units: estimator.units)
     end
   end
 
@@ -50,7 +50,7 @@ class EstimatesController < ApplicationController
 
   # POST /estimates
   def create
-    @estimate = EstimateForm.new(file: estimate_params[:file])
+    @estimate = EstimateForm.new(file: estimate_params[:file], metal_id: estimate_params[:metal_id])
 
     if @estimate.save
       redirect_to @estimate, notice: "Estimate was successfully created."
@@ -73,6 +73,6 @@ class EstimatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def estimate_params
-      params.require(:estimate).permit(:file)
+      params.require(:estimate).permit(:file, :metal_id)
     end
 end

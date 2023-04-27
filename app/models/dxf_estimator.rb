@@ -2,6 +2,16 @@ require 'base64'
 require 'pycall'
 
 class DxfEstimator
+  UNITS = {
+    0 => '(?)',
+    1 => 'in',
+    2 => 'ft',
+    3 => 'mi',
+    4 => 'mm',
+    5 => 'cm',
+    6 => 'm',
+  }
+
   attr_reader :content
 
   class DefaultEntity
@@ -61,6 +71,10 @@ class DxfEstimator
     @ezdxf ||= PyCall.import_module("ezdxf")
   end
 
+  def bbox
+    @bbox ||= PyCall.import_module("ezdxf.bbox")
+  end
+
   def encoded_content
     @encoded_content ||= Base64.encode64(content)
   end
@@ -75,5 +89,21 @@ class DxfEstimator
 
   def length
     entities.sum(&:length)
+  end
+
+  def bounding_box
+    @bounding_box ||= bbox.extents(drawing.modelspace)
+  end
+
+  def width
+    bounding_box.extmax[0] - bounding_box.extmin[0]
+  end
+
+  def height
+    bounding_box.extmax[1] - bounding_box.extmin[1]
+  end
+
+  def units
+    UNITS.fetch(drawing.units, '(?)')
   end
 end

@@ -1,12 +1,37 @@
 <div id="<%= dom_id estimate %>">
+  <h2 class="my-5 text-lg font-medium mb-1"><%= estimate.name %></h2>
+
   <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= estimate.name %>
+    <div>
+      <strong class="font-medium mb-1">Cut length:</strong>
+      <%= estimate.length.round(1) %> <%= estimate.units %>
+    </div>
+    <div>
+      <strong class="font-medium mb-1">Cut time:</strong>
+      <%= distance_of_time_in_words(estimate.cut_time) %>
+    </div>
+    <div>
+      <strong class="font-medium mb-1">Cut price:</strong>
+      <%= estimate.cut_price.format %>
+    </div>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Length:</strong>
-    <%= estimate.length %>
+    <div>
+      <strong class="font-medium mb-1">Dimensions:</strong>
+      <%= estimate.width %> x <%= estimate.height %> <%= estimate.units %>
+    </div>
+    <div>
+      <strong class="font-medium mb-1">Metal price:</strong>
+      <%= estimate.metal_price.format %> (<%= estimate.metal.name %>)
+    </div>
+  </p>
+
+  <p class="my-5">
+    <div>
+      <strong class="font-medium mb-1">Total price:</strong>
+      <%= estimate.total_price.format %>
+    </div>
   </p>
 
   <% if action_name != "show" %>
