@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Metal.create_with(price_cents: 2_00).find_or_create_by!(name: "Steel")
-Metal.create_with(price_cents: 1_00).find_or_create_by!(name: "Aluminum")
-Metal.create_with(price_cents: 100_00).find_or_create_by!(name: "Gold")
+Metal.create_with(price_cents: 0_02).find_or_create_by!(name: "Steel")
+Metal.create_with(price_cents: 0_01).find_or_create_by!(name: "Aluminum")
+Metal.create_with(price_cents: 1_00).find_or_create_by!(name: "Gold")

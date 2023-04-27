@@ -1,24 +1,15 @@
-# README
+# Estimator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Requirements:
 
-Things you may want to cover:
+* Postgres 14+
+* Ruby 3.2.2
+* Python 3.11.3
 
-* Ruby version
+Setup steps:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Use asdf to manage tool versions using `asdf install`
+2. Install Ruby dependencies using `bundle install`
+3. Sigh, Python `pip3 install -r requirements.txt`
+4. Set up the local database `bin/rails db:setup`
+5. Start the Rails server `heroku local -f Procfile.dev`
